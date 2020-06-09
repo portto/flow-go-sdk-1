@@ -1,4 +1,4 @@
-module github.com/onflow/flow-go-sdk
+module github.com/portto/blocto-flow-go-sdk
 
 go 1.13
 
@@ -18,4 +18,5 @@ require (
 	google.golang.org/grpc v1.28.0
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v2 v2.2.4 // indirect
+	honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc // indirect
 )
