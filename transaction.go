@@ -318,6 +318,92 @@ func (t *Transaction) Encode() []byte {
 	return mustRLPEncode(&temp)
 }
 
+// DecodeFromBytes un-serializes from raw data to the full transaction data
+func (t *Transaction) DecodeFromBytes(bs []byte) error {
+	type payload struct {
+		Script                    []byte
+		Arguments                 [][]byte
+		ReferenceBlockID          []byte
+		GasLimit                  uint64
+		ProposalKeyAddress        []byte
+		ProposalKeyID             uint64
+		ProposalKeySequenceNumber uint64
+		Payer                     []byte
+		Authorizers               [][]byte
+	}
+
+	type signature struct {
+		SignerIndex uint
+		KeyID       uint
+		Signature   []byte
+	}
+
+	type tempStruct struct {
+		Payload            payload
+		PayloadSignatures  []signature
+		EnvelopeSignatures []signature
+	}
+
+	temp := tempStruct{}
+	if err := rlpDecode(bs, &temp); err != nil {
+		return err
+	}
+
+	t.Script = temp.Payload.Script
+	var tempReferenceBlockID [32]byte
+	copy(tempReferenceBlockID[:], temp.Payload.ReferenceBlockID)
+	t.ReferenceBlockID = tempReferenceBlockID
+	t.GasLimit = temp.Payload.GasLimit
+	var tempProposalKeyAddress [8]byte
+	copy(tempProposalKeyAddress[:], temp.Payload.ProposalKeyAddress)
+	t.ProposalKey.Address = tempProposalKeyAddress
+	t.ProposalKey.KeyID = int(temp.Payload.ProposalKeyID)
+	t.ProposalKey.SequenceNumber = temp.Payload.ProposalKeySequenceNumber
+	var tempAddress [8]byte
+	copy(tempAddress[:], temp.Payload.ProposalKeyAddress)
+	var tempPayer [8]byte
+	copy(tempPayer[:], temp.Payload.Payer)
+	t.Payer = tempPayer
+
+	t.Arguments = make([]cadence.Value, len(temp.Payload.Arguments))
+	for i, arg := range temp.Payload.Arguments {
+		value, err := jsoncdc.Decode(arg)
+		if err != nil {
+			return err
+		}
+		t.Arguments[i] = value
+	}
+
+	t.Authorizers = make([]Address, len(temp.Payload.Authorizers))
+	for i, auth := range temp.Payload.Authorizers {
+		var tempAuth [8]byte
+		copy(tempAuth[:], auth)
+		t.Authorizers[i] = tempAddress
+	}
+
+	t.PayloadSignatures = make([]TransactionSignature, len(temp.PayloadSignatures))
+	for i, sig := range temp.PayloadSignatures {
+		t.PayloadSignatures[i] = TransactionSignature{
+			Address:     t.signerList()[sig.SignerIndex],
+			SignerIndex: int(sig.SignerIndex),
+			KeyID:       int(sig.KeyID),
+			Signature:   sig.Signature,
+		}
+	}
+
+	t.EnvelopeSignatures = make([]TransactionSignature, len(temp.EnvelopeSignatures))
+	for i, sig := range temp.EnvelopeSignatures {
+		t.EnvelopeSignatures[i] = TransactionSignature{
+			Address:     t.signerList()[sig.SignerIndex],
+			SignerIndex: int(sig.SignerIndex),
+			KeyID:       int(sig.KeyID),
+			Signature:   sig.Signature,
+		}
+	}
+
+	return nil
+}
+
 // A ProposalKey is the key that specifies the proposal key and sequence number for a transaction.
 type ProposalKey struct {
 	Address        Address
