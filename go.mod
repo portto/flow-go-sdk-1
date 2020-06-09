@@ -1,4 +1,4 @@
-module github.com/onflow/flow-go-sdk
+module github.com/portto/blocto-flow-go-sdk
 
 go 1.13
 
