@@ -1,4 +1,4 @@
-# Flow Go SDK [![GoDoc](https://godoc.org/github.com/onflow/flow-go-sdk?status.svg)](https://godoc.org/github.com/onflow/flow-go-sdk)
+# Flow Go SDK [![GoDoc](https://godoc.org/github.com/portto/blocto-flow-go-sdk?status.svg)](https://godoc.org/github.com/portto/blocto-flow-go-sdk)
 
 The Flow Go SDK provides a set of packages for Go developers to build applications that interact with the Flow network.
 
@@ -43,7 +43,7 @@ Flow is a new blockchain for open worlds. Read more about it [here](https://gith
 To start using the SDK, install Go 1.13 or above and run go get:
 
 ```sh
-go get github.com/onflow/flow-go-sdk
+go get github.com/portto/blocto-flow-go-sdk
 ```
 
 ### Generating Keys
@@ -55,7 +55,7 @@ the SHA2-256 or SHA3-256 hashing algorithms.
 Here's how to generate an ECDSA private key on the P-256 curve:
 
 ```go
-import "github.com/onflow/flow-go-sdk/crypto"
+import "github.com/portto/blocto-flow-go-sdk/crypto"
 
 // deterministic seed phrase
 // note: this is only an example, please use a secure random generator for the key seed
@@ -96,9 +96,9 @@ using its public key.
 
 ```go
 import (
-    "github.com/onflow/flow-go-sdk"
-    "github.com/onflow/flow-go-sdk/crypto"
-    "github.com/onflow/flow-go-sdk/templates"
+    "github.com/portto/blocto-flow-go-sdk"
+    "github.com/portto/blocto-flow-go-sdk/crypto"
+    "github.com/portto/blocto-flow-go-sdk/templates"
 )
 
 ctx := context.Background()
@@ -168,8 +168,8 @@ Below is a simple example of how to sign a transaction using a `crypto.PrivateKe
 
 ```go
 import (
-    "github.com/onflow/flow-go-sdk"
-    "github.com/onflow/flow-go-sdk/crypto"
+    "github.com/portto/blocto-flow-go-sdk"
+    "github.com/portto/blocto-flow-go-sdk/crypto"
 )
 
 var (
@@ -401,7 +401,7 @@ err = tx.SignEnvelope(account2.Address, key4.ID, key4Signer)
 You can submit a transaction to the network using the Access API client.
 
 ```go
-import "github.com/onflow/flow-go-sdk/client"
+import "github.com/portto/blocto-flow-go-sdk/client"
 
 // connect to an emulator running locally
 c, err := client.New("localhost:3569")
@@ -513,7 +513,7 @@ myID := ID.Int()
 You can query events with the `GetEventsForHeightRange` function:
 
 ```go
-import "github.com/onflow/flow-go-sdk/client"
+import "github.com/portto/blocto-flow-go-sdk/client"
 
 blocks, err := c.GetEventsForHeightRange(ctx, client.EventRangeQuery{
     Type:       "flow.AccountCreated",
@@ -565,7 +565,7 @@ TODO: example for event decoding
 You can query the state of an account with the `GetAccount` function:
 
 ```go
-import "github.com/onflow/flow-go-sdk"
+import "github.com/portto/blocto-flow-go-sdk"
 
 address := flow.HexToAddress("01")
 

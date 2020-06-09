@@ -24,10 +24,10 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/onflow/flow-go-sdk"
-	"github.com/onflow/flow-go-sdk/client"
-	"github.com/onflow/flow-go-sdk/crypto"
-	"github.com/onflow/flow-go-sdk/examples"
+	"github.com/portto/blocto-flow-go-sdk"
+	"github.com/portto/blocto-flow-go-sdk/client"
+	"github.com/portto/blocto-flow-go-sdk/crypto"
+	"github.com/portto/blocto-flow-go-sdk/examples"
 )
 
 func main() {

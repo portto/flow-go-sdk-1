@@ -31,10 +31,10 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/onflow/flow-go-sdk"
-	"github.com/onflow/flow-go-sdk/client"
-	"github.com/onflow/flow-go-sdk/client/convert"
-	"github.com/onflow/flow-go-sdk/test"
+	"github.com/portto/blocto-flow-go-sdk"
+	"github.com/portto/blocto-flow-go-sdk/client"
+	"github.com/portto/blocto-flow-go-sdk/client/convert"
+	"github.com/portto/blocto-flow-go-sdk/test"
 )
 
 var mockRPCError = errors.New("rpc error")

@@ -34,7 +34,7 @@ import (
 	"math/big"
 	"sync"
 
-	"github.com/onflow/flow-go-sdk/crypto/internal/crypto/hash"
+	"github.com/portto/blocto-flow-go-sdk/crypto/internal/crypto/hash"
 )
 
 // ecdsaAlgo embeds SignAlgo

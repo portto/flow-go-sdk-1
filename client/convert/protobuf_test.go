@@ -26,9 +26,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/onflow/flow-go-sdk"
-	"github.com/onflow/flow-go-sdk/client/convert"
-	"github.com/onflow/flow-go-sdk/test"
+	"github.com/portto/blocto-flow-go-sdk"
+	"github.com/portto/blocto-flow-go-sdk/client/convert"
+	"github.com/portto/blocto-flow-go-sdk/test"
 )
 
 func TestConvert_Account(t *testing.T) {

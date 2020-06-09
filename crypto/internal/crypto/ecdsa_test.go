@@ -24,7 +24,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/onflow/flow-go-sdk/crypto/internal/crypto/hash"
+	"github.com/portto/blocto-flow-go-sdk/crypto/internal/crypto/hash"
 )
 
 // ECDSA tests

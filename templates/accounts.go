@@ -23,7 +23,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/onflow/flow-go-sdk"
+	"github.com/portto/blocto-flow-go-sdk"
 )
 
 // CreateAccount generates a script that creates a new account.

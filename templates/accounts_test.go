@@ -24,9 +24,9 @@ import (
 	"github.com/lithammer/dedent"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/onflow/flow-go-sdk"
-	"github.com/onflow/flow-go-sdk/templates"
-	"github.com/onflow/flow-go-sdk/test"
+	"github.com/portto/blocto-flow-go-sdk"
+	"github.com/portto/blocto-flow-go-sdk/templates"
+	"github.com/portto/blocto-flow-go-sdk/test"
 )
 
 func TestCreateAccount(t *testing.T) {

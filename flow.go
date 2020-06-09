@@ -23,7 +23,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/rlp"
 
-	"github.com/onflow/flow-go-sdk/crypto"
+	"github.com/portto/blocto-flow-go-sdk/crypto"
 )
 
 // An Identifier is a 32-byte unique identifier for an entity.
