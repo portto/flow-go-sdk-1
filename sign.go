@@ -21,7 +21,7 @@ package flow
 import (
 	"fmt"
 
-	"github.com/onflow/flow-go-sdk/crypto"
+	"github.com/portto/blocto-flow-go-sdk/crypto"
 )
 
 const domainTagLength = 32

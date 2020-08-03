@@ -32,10 +32,10 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/onflow/flow-go-sdk"
-	"github.com/onflow/flow-go-sdk/client"
-	"github.com/onflow/flow-go-sdk/client/convert"
-	"github.com/onflow/flow-go-sdk/test"
+	"github.com/portto/blocto-flow-go-sdk"
+	"github.com/portto/blocto-flow-go-sdk/client"
+	"github.com/portto/blocto-flow-go-sdk/client/convert"
+	"github.com/portto/blocto-flow-go-sdk/test"
 )
 
 var (
