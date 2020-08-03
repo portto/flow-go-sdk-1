@@ -27,10 +27,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/onflow/flow-go-sdk"
-	"github.com/onflow/flow-go-sdk/client"
-	"github.com/onflow/flow-go-sdk/crypto"
-	"github.com/onflow/flow-go-sdk/templates"
+	"github.com/portto/blocto-flow-go-sdk"
+	"github.com/portto/blocto-flow-go-sdk/client"
+	"github.com/portto/blocto-flow-go-sdk/crypto"
+	"github.com/portto/blocto-flow-go-sdk/templates"
 )
 
 // ReadFile reads a file from the file system.

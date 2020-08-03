@@ -25,8 +25,8 @@ import (
 	"encoding/pem"
 	"fmt"
 
-	"github.com/onflow/flow-go-sdk/crypto/internal/crypto"
-	"github.com/onflow/flow-go-sdk/crypto/internal/crypto/hash"
+	"github.com/portto/blocto-flow-go-sdk/crypto/internal/crypto"
+	"github.com/portto/blocto-flow-go-sdk/crypto/internal/crypto/hash"
 )
 
 // SignatureAlgorithm is an identifier for a signature algorithm (and parameters if applicable).
