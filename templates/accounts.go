@@ -62,6 +62,41 @@ func CreateAccount(accountKeys []*flow.AccountKey, code []byte, payer flow.Addre
 		AddRawArgument(jsoncdc.MustEncode(cadenceCode))
 }
 
+const createAccountWithoutCodeTemplate = `
+transaction(publicKeys: [[UInt8]], code: [UInt8]) {
+  prepare(signer: AuthAccount) {
+	let acct = AuthAccount(payer: signer)
+
+	for key in publicKeys {
+		acct.addPublicKey(key)
+	}
+  }
+}
+`
+
+// CreateAccountWithoutCode generates a transactions that creates a new account without code.
+//
+// This template accepts a list of public keys and a code argument, both of which are optional.
+//
+// The final argument is the address of the account that will pay the account creation fee.
+// This account is added as a transaction authorizer and therefore must sign the resulting transaction.
+func CreateAccountWithoutCode(accountKeys []*flow.AccountKey, payer flow.Address) *flow.Transaction {
+	publicKeys := make([]cadence.Value, len(accountKeys))
+
+	for i, accountKey := range accountKeys {
+		publicKeys[i] = bytesToCadenceArray(accountKey.Encode())
+	}
+
+	cadencePublicKeys := cadence.NewArray(publicKeys)
+	cadenceCode := bytesToCadenceArray(nil)
+
+	return flow.NewTransaction().
+		SetScript([]byte(createAccountWithoutCodeTemplate)).
+		AddAuthorizer(payer).
+		AddRawArgument(jsoncdc.MustEncode(cadencePublicKeys)).
+		AddRawArgument(jsoncdc.MustEncode(cadenceCode))
+}
+
 const updateAccountCodeTemplate = `
 transaction(code: [UInt8]) {
   prepare(signer: AuthAccount) {
