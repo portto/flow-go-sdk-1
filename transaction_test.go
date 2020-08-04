@@ -547,3 +547,29 @@ func TestTransaction_RLPMessages(t *testing.T) {
 		})
 	}
 }
+
+func TestTransaction_Encode(t *testing.T) {
+	tx := flow.NewTransaction().
+		SetGasLimit(123).
+		SetPayer(flow.HexToAddress("1234ab")).
+		SetReferenceBlockID(flow.HexToID("01")).
+		SetScript([]byte{0xab}).
+		SetProposalKey(flow.HexToAddress("1234ab"), 0, 1).
+		AddAuthorizer(flow.HexToAddress("1234ab")).
+		AddEnvelopeSignature(flow.HexToAddress("1234ab"), 0, []byte{0x12}).
+		AddPayloadSignature(flow.HexToAddress("1234ab"), 0, []byte{0x34}).
+		AddRawArgument([]byte{0x88})
+
+	txBytes := tx.Encode()
+	newTx := flow.Transaction{}
+	assert.Nil(t, newTx.DecodeFromBytes(txBytes), "DecodeFromBytes failed")
+	assert.Equal(t, tx.GasLimit, newTx.GasLimit)
+	assert.Equal(t, tx.Payer, newTx.Payer)
+	assert.Equal(t, tx.ProposalKey, newTx.ProposalKey)
+	assert.Equal(t, tx.Script, newTx.Script)
+	assert.Equal(t, tx.Arguments, newTx.Arguments)
+	assert.Equal(t, tx.ReferenceBlockID, newTx.ReferenceBlockID)
+	assert.Equal(t, tx.Authorizers, newTx.Authorizers)
+	assert.Equal(t, tx.EnvelopeSignatures, newTx.EnvelopeSignatures)
+	assert.Equal(t, tx.PayloadSignatures, newTx.PayloadSignatures)
+}
