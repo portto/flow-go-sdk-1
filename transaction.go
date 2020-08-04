@@ -364,15 +364,7 @@ func (t *Transaction) DecodeFromBytes(bs []byte) error {
 	var tempPayer [8]byte
 	copy(tempPayer[:], temp.Payload.Payer)
 	t.Payer = tempPayer
-
-	t.Arguments = make([]cadence.Value, len(temp.Payload.Arguments))
-	for i, arg := range temp.Payload.Arguments {
-		value, err := jsoncdc.Decode(arg)
-		if err != nil {
-			return err
-		}
-		t.Arguments[i] = value
-	}
+	t.Arguments = temp.Payload.Arguments
 
 	t.Authorizers = make([]Address, len(temp.Payload.Authorizers))
 	for i, auth := range temp.Payload.Authorizers {
