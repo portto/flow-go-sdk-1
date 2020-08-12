@@ -153,6 +153,42 @@ func RemoveAccountKey(address flow.Address, keyIndex int) *flow.Transaction {
 		AddAuthorizer(address)
 }
 
+const replaceAccountKeysTemplate = `
+transaction(publicKeys: [[UInt8]], keyIDs: [Int]) {
+  prepare(signer: AuthAccount) {
+	for key in publicKeys {
+		signer.addPublicKey(key)
+	}
+
+	for id in keyIDs {
+		signer.removePublicKey(id)
+	}
+  }
+}
+`
+
+// ReplaceAccountKeys remove keys by ids and add new keys
+func ReplaceAccountKeys(address flow.Address, ids []int, accountKeys []*flow.AccountKey) *flow.Transaction {
+	publicKeys := make([]cadence.Value, len(accountKeys))
+	for i, accountKey := range accountKeys {
+		publicKeys[i] = bytesToCadenceArray(accountKey.Encode())
+	}
+
+	removeIDs := make([]cadence.Value, len(ids))
+	for i, id := range ids {
+		removeIDs[i] = cadence.NewInt(id)
+	}
+
+	cadencePublicKeys := cadence.NewArray(publicKeys)
+	cadenceIDs := cadence.NewArray(removeIDs)
+
+	return flow.NewTransaction().
+		SetScript([]byte(replaceAccountKeysTemplate)).
+		AddRawArgument(jsoncdc.MustEncode(cadencePublicKeys)).
+		AddRawArgument(jsoncdc.MustEncode(cadenceIDs)).
+		AddAuthorizer(address)
+}
+
 func bytesToCadenceArray(b []byte) cadence.Array {
 	values := make([]cadence.Value, len(b))
 
