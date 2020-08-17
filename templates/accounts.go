@@ -156,12 +156,12 @@ func RemoveAccountKey(address flow.Address, keyIndex int) *flow.Transaction {
 const replaceAccountKeysTemplate = `
 transaction(publicKeys: [[UInt8]], keyIDs: [Int]) {
   prepare(signer: AuthAccount) {
-	for key in publicKeys {
-		signer.addPublicKey(key)
-	}
-
 	for id in keyIDs {
 		signer.removePublicKey(id)
+	}
+
+	for key in publicKeys {
+		signer.addPublicKey(key)
 	}
   }
 }
