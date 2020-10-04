@@ -29,7 +29,7 @@ import (
 	kms "cloud.google.com/go/kms/apiv1"
 	kmspb "google.golang.org/genproto/googleapis/cloud/kms/v1"
 
-	"github.com/onflow/flow-go-sdk/crypto"
+	"github.com/portto/blocto-flow-go-sdk/crypto"
 )
 
 // Key is a reference to a Google Cloud KMS asymmetric signing key version.
