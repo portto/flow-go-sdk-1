@@ -408,7 +408,7 @@ func (t *Transaction) DecodeFromBytes(bs []byte) error {
 	var tempProposalKeyAddress [8]byte
 	copy(tempProposalKeyAddress[:], temp.Payload.ProposalKeyAddress)
 	t.ProposalKey.Address = tempProposalKeyAddress
-	t.ProposalKey.KeyID = int(temp.Payload.ProposalKeyID)
+	t.ProposalKey.KeyIndex = int(temp.Payload.ProposalKeyID)
 	t.ProposalKey.SequenceNumber = temp.Payload.ProposalKeySequenceNumber
 	var tempAddress [8]byte
 	copy(tempAddress[:], temp.Payload.ProposalKeyAddress)
@@ -429,7 +429,7 @@ func (t *Transaction) DecodeFromBytes(bs []byte) error {
 		t.PayloadSignatures[i] = TransactionSignature{
 			Address:     t.signerList()[sig.SignerIndex],
 			SignerIndex: int(sig.SignerIndex),
-			KeyID:       int(sig.KeyID),
+			KeyIndex:    int(sig.KeyID),
 			Signature:   sig.Signature,
 		}
 	}
@@ -439,7 +439,7 @@ func (t *Transaction) DecodeFromBytes(bs []byte) error {
 		t.EnvelopeSignatures[i] = TransactionSignature{
 			Address:     t.signerList()[sig.SignerIndex],
 			SignerIndex: int(sig.SignerIndex),
-			KeyID:       int(sig.KeyID),
+			KeyIndex:    int(sig.KeyID),
 			Signature:   sig.Signature,
 		}
 	}
@@ -485,7 +485,7 @@ func (t *Transaction) DecodeFromPayloadBytes(bs []byte) error {
 	var tempProposalKeyAddress [8]byte
 	copy(tempProposalKeyAddress[:], temp.Payload.ProposalKeyAddress)
 	t.ProposalKey.Address = tempProposalKeyAddress
-	t.ProposalKey.KeyID = int(temp.Payload.ProposalKeyID)
+	t.ProposalKey.KeyIndex = int(temp.Payload.ProposalKeyID)
 	t.ProposalKey.SequenceNumber = temp.Payload.ProposalKeySequenceNumber
 	var tempAddress [8]byte
 	copy(tempAddress[:], temp.Payload.ProposalKeyAddress)
@@ -506,7 +506,7 @@ func (t *Transaction) DecodeFromPayloadBytes(bs []byte) error {
 		t.PayloadSignatures[i] = TransactionSignature{
 			Address:     t.signerList()[sig.SignerIndex],
 			SignerIndex: int(sig.SignerIndex),
-			KeyID:       int(sig.KeyID),
+			KeyIndex:    int(sig.KeyID),
 			Signature:   sig.Signature,
 		}
 	}
