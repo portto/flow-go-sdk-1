@@ -410,8 +410,6 @@ func (t *Transaction) DecodeFromBytes(bs []byte) error {
 	t.ProposalKey.Address = tempProposalKeyAddress
 	t.ProposalKey.KeyIndex = int(temp.Payload.ProposalKeyID)
 	t.ProposalKey.SequenceNumber = temp.Payload.ProposalKeySequenceNumber
-	var tempAddress [8]byte
-	copy(tempAddress[:], temp.Payload.ProposalKeyAddress)
 	var tempPayer [8]byte
 	copy(tempPayer[:], temp.Payload.Payer)
 	t.Payer = tempPayer
@@ -421,7 +419,7 @@ func (t *Transaction) DecodeFromBytes(bs []byte) error {
 	for i, auth := range temp.Payload.Authorizers {
 		var tempAuth [8]byte
 		copy(tempAuth[:], auth)
-		t.Authorizers[i] = tempAddress
+		t.Authorizers[i] = tempAuth
 	}
 
 	t.PayloadSignatures = make([]TransactionSignature, len(temp.PayloadSignatures))
