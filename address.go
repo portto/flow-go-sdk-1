@@ -130,8 +130,20 @@ func zeroAddress(chain ChainID) Address {
 
 // HexToAddress converts a hex string to an Address.
 func HexToAddress(h string) Address {
+	if has0xPrefix(h) {
+		h = h[2:]
+	}
+	if len(h)%2 == 1 {
+		h = "0" + h
+	}
+
 	b, _ := hex.DecodeString(h)
 	return BytesToAddress(b)
+}
+
+// has0xPrefix validates str begins with '0x' or '0X'.
+func has0xPrefix(str string) bool {
+	return len(str) >= 2 && str[0] == '0' && (str[1] == 'x' || str[1] == 'X')
 }
 
 // BytesToAddress returns Address with value b.
